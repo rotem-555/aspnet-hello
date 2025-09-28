@@ -1,0 +1,17 @@
+.card {
+  margin-top: 50px;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.form-control.is-invalid {
+  border-color: #dc3545;
+}
+
+.alert {
+  margin-bottom: 1rem;
+}
+

@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Manage Products</h2>
+        <button class="btn btn-primary" (click)="showCreateForm = !showCreateForm">
+          {{ showCreateForm ? 'Cancel' : 'Add Product' }}
+        </button>
+      </div>
+
+      <!-- Create Product Form -->
+      <div class="card mb-4" *ngIf="showCreateForm">
+        <div class="card-header">
+          <h5>Create New Product</h5>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="createProduct()">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Name</label>
+                  <input type="text" class="form-control" [(ngModel)]="newProduct.name" name="name" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Category</label>
+                  <input type="text" class="form-control" [(ngModel)]="newProduct.category" name="category">
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea class="form-control" [(ngModel)]="newProduct.description" name="description" rows="3"></textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label class="form-label">Price</label>
+                  <input type="number" class="form-control" [(ngModel)]="newProduct.price" name="price" step="0.01" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label class="form-label">Stock</label>
+                  <input type="number" class="form-control" [(ngModel)]="newProduct.stock" name="stock" required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label class="form-label">Image URL</label>
+                  <input type="url" class="form-control" [(ngModel)]="newProduct.imageUrl" name="imageUrl">
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success">Create Product</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Products Table -->
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of products">
+                  <td>{{ product.id }}</td>
+                  <td>{{ product.name }}</td>
+                  <td>{{ product.category }}</td>
+                  <td>${{ product.price | number:'1.2-2' }}</td>
+                  <td>{{ product.stock }}</td>
+                  <td>
+                    <span class="badge" [class.bg-success]="product.isActive" [class.bg-secondary]="!product.isActive">
+                      {{ product.isActive ? 'Active' : 'Inactive' }}
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary me-2" (click)="editProduct(product)">
+                      Edit
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="deleteProduct(product.id)">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

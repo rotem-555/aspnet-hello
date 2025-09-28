@@ -1,0 +1,43 @@
+# Development Docker Compose file
+# Use: docker compose -f docker-compose.dev.yml up -d
+
+services:
+  # MySQL Database for development
+  mysql-dev:
+    image: mysql:8.0
+    container_name: ecommerce-mysql-dev
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: ECommerceDB_Dev
+      MYSQL_USER: ecommerce
+      MYSQL_PASSWORD: ecommerce123
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_dev_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    networks:
+      - ecommerce-dev-network
+
+  # Redis for development
+  redis-dev:
+    image: redis:6-alpine
+    container_name: ecommerce-redis-dev
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_dev_data:/data
+    networks:
+      - ecommerce-dev-network
+
+volumes:
+  mysql_dev_data:
+    driver: local
+  redis_dev_data:
+    driver: local
+
+networks:
+  ecommerce-dev-network:
+    driver: bridge

@@ -1,0 +1,11 @@
+.img-fluid {
+  max-height: 400px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+

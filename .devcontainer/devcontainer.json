@@ -1,0 +1,16 @@
+{
+  "name": "ASP.NET 5 Dev",
+  "dockerFile": "Dockerfile",
+  "context": "..",
+  "appPort": [5000, 5001],
+  "settings": {
+    "omnisharp.enableRoslynAnalyzers": true
+  },
+  "extensions": [
+    "ms-dotnettools.csdevkit"
+  ],
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind"
+  ],
+  "remoteUser": "root"
+}

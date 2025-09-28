@@ -1,0 +1,35 @@
+<div class="container" *ngIf="product">
+  <div class="row">
+    <div class="col-md-6">
+      <img 
+        [src]="product.imageUrl || '/assets/placeholder-product.jpg'" 
+        class="img-fluid rounded" 
+        [alt]="product.name">
+    </div>
+    <div class="col-md-6">
+      <h2>{{ product.name }}</h2>
+      <p class="text-muted">{{ product.category }}</p>
+      <p>{{ product.description }}</p>
+      <h3 class="text-primary">${{ product.price | number:'1.2-2' }}</h3>
+      <p><strong>Stock:</strong> {{ product.stock }}</p>
+      <button class="btn btn-primary" [disabled]="product.stock === 0">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="loading">
+  <div class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="errorMessage">
+  <div class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+</div>
+
