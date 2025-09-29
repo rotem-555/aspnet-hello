@@ -10,11 +10,11 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { AdminGuard } from './core/guards/admin.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/products', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'products', component: ProductListComponent },
-  { path: 'products/:id', component: ProductDetailComponent },
+  { path: 'products', component: ProductListComponent, canActivate: [AuthGuard] },
+  { path: 'products/:id', component: ProductDetailComponent, canActivate: [AuthGuard] },
   { 
     path: 'admin/products', 
     component: AdminProductsComponent, 
@@ -25,7 +25,7 @@ const routes: Routes = [
     component: AdminUsersComponent, 
     canActivate: [AuthGuard, AdminGuard] 
   },
-  { path: '**', redirectTo: '/products' }
+  { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({
