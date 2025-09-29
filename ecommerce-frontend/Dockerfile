@@ -1,5 +1,5 @@
-# Use Node.js 14 for building Angular app
-FROM node:14-alpine AS build
+# Use Node.js 14 for Angular development
+FROM node:14-alpine
 
 # Set working directory
 WORKDIR /app
@@ -13,24 +13,8 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Build the Angular app
-RUN npm run build --prod
+# Expose port 4200 for Angular dev server
+EXPOSE 4200
 
-# Use nginx to serve the built app
-FROM nginx:alpine AS runtime
-
-# Copy built app from build stage
-COPY --from=build /app/dist/ecommerce-frontend /usr/share/nginx/html
-
-# Copy custom nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
-
-# Expose port 80
-EXPOSE 80
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost/ || exit 1
-
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start Angular development server
+CMD ["npm", "start", "--", "--host", "0.0.0.0"]
