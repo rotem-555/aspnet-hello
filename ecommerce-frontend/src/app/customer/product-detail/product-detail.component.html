@@ -1,12 +1,6 @@
 <div class="container" *ngIf="product">
   <div class="row">
-    <div class="col-md-6">
-      <img 
-        [src]="product.imageUrl || '/assets/placeholder-product.jpg'" 
-        class="img-fluid rounded" 
-        [alt]="product.name">
-    </div>
-    <div class="col-md-6">
+    <div class="col-md-12">
       <h2>{{ product.name }}</h2>
       <p class="text-muted">{{ product.category }}</p>
       <p>{{ product.description }}</p>

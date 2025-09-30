@@ -5,7 +5,6 @@ export interface Product {
   price: number;
   stock: number;
   category: string;
-  imageUrl: string;
   isActive: boolean;
   createdAt: string;
 }
@@ -16,7 +15,6 @@ export interface CreateProduct {
   price: number;
   stock: number;
   category: string;
-  imageUrl: string;
 }
 
 export interface UpdateProduct {
@@ -25,7 +23,6 @@ export interface UpdateProduct {
   price?: number;
   stock?: number;
   category?: string;
-  imageUrl?: string;
   isActive?: boolean;
 }
 

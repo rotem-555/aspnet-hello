@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS Products (
     Price DECIMAL(10,2) NOT NULL,
     Stock INT NOT NULL,
     Category VARCHAR(50),
-    ImageUrl VARCHAR(500),
     IsActive BOOLEAN NOT NULL DEFAULT TRUE,
     CreatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt DATETIME NULL,
@@ -69,11 +68,11 @@ INSERT IGNORE INTO Users (Username, PasswordHash, Role, Email, FirstName, LastNa
 ('admin', '$2a$11$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'Admin', 'admin@example.com', 'Admin', 'User');
 
 -- Insert sample products
-INSERT IGNORE INTO Products (Name, Description, Price, Stock, Category, ImageUrl, IsActive) VALUES
-('Laptop', 'High-performance laptop for work and gaming', 999.99, 50, 'Electronics', '/images/laptop.jpg', TRUE),
-('Smartphone', 'Latest smartphone with advanced features', 699.99, 100, 'Electronics', '/images/smartphone.jpg', TRUE),
-('Coffee Maker', 'Automatic coffee maker for perfect brew', 149.99, 25, 'Appliances', '/images/coffee-maker.jpg', TRUE),
-('Wireless Headphones', 'Noise-cancelling wireless headphones', 199.99, 75, 'Electronics', '/images/headphones.jpg', TRUE),
-('Office Chair', 'Ergonomic office chair for comfort', 299.99, 30, 'Furniture', '/images/chair.jpg', TRUE),
-('Desk Lamp', 'LED desk lamp with adjustable brightness', 49.99, 60, 'Furniture', '/images/lamp.jpg', TRUE);
+INSERT IGNORE INTO Products (Name, Description, Price, Stock, Category, IsActive) VALUES
+('Laptop', 'High-performance laptop for work and gaming', 999.99, 50, 'Electronics', TRUE),
+('Smartphone', 'Latest smartphone with advanced features', 699.99, 100, 'Electronics', TRUE),
+('Coffee Maker', 'Automatic coffee maker for perfect brew', 149.99, 25, 'Appliances', TRUE),
+('Wireless Headphones', 'Noise-cancelling wireless headphones', 199.99, 75, 'Electronics', TRUE),
+('Office Chair', 'Ergonomic office chair for comfort', 299.99, 30, 'Furniture', TRUE),
+('Desk Lamp', 'LED desk lamp with adjustable brightness', 49.99, 60, 'Furniture', TRUE);
 

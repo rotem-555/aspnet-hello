@@ -19,8 +19,7 @@ export class AdminProductsComponent implements OnInit {
     description: '',
     price: 0,
     stock: 0,
-    category: '',
-    imageUrl: ''
+    category: ''
   };
 
   constructor(private productService: ProductService) {}
@@ -68,7 +67,6 @@ export class AdminProductsComponent implements OnInit {
         price: this.editingProduct.price,
         stock: this.editingProduct.stock,
         category: this.editingProduct.category,
-        imageUrl: this.editingProduct.imageUrl,
         isActive: this.editingProduct.isActive
       };
 
@@ -107,8 +105,7 @@ export class AdminProductsComponent implements OnInit {
       description: '',
       price: 0,
       stock: 0,
-      category: '',
-      imageUrl: ''
+      category: ''
     };
   }
 }

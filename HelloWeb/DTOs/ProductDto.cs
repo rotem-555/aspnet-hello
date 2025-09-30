@@ -11,7 +11,6 @@ namespace HelloWeb.DTOs
         public decimal Price { get; set; }
         public int Stock { get; set; }
         public string Category { get; set; }
-        public string ImageUrl { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
     }
@@ -35,9 +34,6 @@ namespace HelloWeb.DTOs
 
         [StringLength(50)]
         public string Category { get; set; }
-
-        [StringLength(500)]
-        public string ImageUrl { get; set; }
     }
 
     public class UpdateProductDto
@@ -56,9 +52,6 @@ namespace HelloWeb.DTOs
 
         [StringLength(50)]
         public string Category { get; set; }
-
-        [StringLength(500)]
-        public string ImageUrl { get; set; }
 
         public bool? IsActive { get; set; }
     }

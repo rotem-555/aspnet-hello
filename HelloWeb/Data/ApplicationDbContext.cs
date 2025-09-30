@@ -87,7 +87,6 @@ namespace HelloWeb.Data
                     Price = 999.99m,
                     Stock = 50,
                     Category = "Electronics",
-                    ImageUrl = "/images/laptop.jpg",
                     IsActive = true,
                     CreatedAt = DateTime.UtcNow
                 },
@@ -99,7 +98,6 @@ namespace HelloWeb.Data
                     Price = 699.99m,
                     Stock = 100,
                     Category = "Electronics",
-                    ImageUrl = "/images/smartphone.jpg",
                     IsActive = true,
                     CreatedAt = DateTime.UtcNow
                 },
@@ -111,7 +109,6 @@ namespace HelloWeb.Data
                     Price = 149.99m,
                     Stock = 25,
                     Category = "Appliances",
-                    ImageUrl = "/images/coffee-maker.jpg",
                     IsActive = true,
                     CreatedAt = DateTime.UtcNow
                 }

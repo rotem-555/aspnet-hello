@@ -58,7 +58,6 @@ namespace HelloWeb.Services
                 Price = createProductDto.Price,
                 Stock = createProductDto.Stock,
                 Category = createProductDto.Category,
-                ImageUrl = createProductDto.ImageUrl,
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
             };
@@ -85,8 +84,6 @@ namespace HelloWeb.Services
                 product.Stock = updateProductDto.Stock.Value;
             if (updateProductDto.Category != null)
                 product.Category = updateProductDto.Category;
-            if (updateProductDto.ImageUrl != null)
-                product.ImageUrl = updateProductDto.ImageUrl;
             if (updateProductDto.IsActive.HasValue)
                 product.IsActive = updateProductDto.IsActive.Value;
 
@@ -130,7 +127,6 @@ namespace HelloWeb.Services
                 Price = product.Price,
                 Stock = product.Stock,
                 Category = product.Category,
-                ImageUrl = product.ImageUrl,
                 IsActive = product.IsActive,
                 CreatedAt = product.CreatedAt
             };
