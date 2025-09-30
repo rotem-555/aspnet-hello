@@ -34,14 +34,8 @@ namespace HelloWeb.Services
                 throw new UnauthorizedAccessException("Invalid username or password");
             }
 
-            // Try BCrypt verification first, with fallback for admin user
+            // Verify password using BCrypt
             bool passwordValid = BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash);
-            
-            // Fallback for admin user if BCrypt fails (temporary workaround)
-            if (!passwordValid && user.Username == "admin" && request.Password == "admin123")
-            {
-                passwordValid = true;
-            }
 
             if (!passwordValid)
             {

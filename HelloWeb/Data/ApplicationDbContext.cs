@@ -56,63 +56,6 @@ namespace HelloWeb.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Seed data - disabled to avoid conflicts with existing database data
-            // SeedData(modelBuilder);
-        }
-
-        private void SeedData(ModelBuilder modelBuilder)
-        {
-            // Seed admin user
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = 1,
-                    Username = "admin",
-                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123"),
-                    Role = "Admin",
-                    Email = "admin@example.com",
-                    FirstName = "Admin",
-                    LastName = "User",
-                    CreatedAt = DateTime.UtcNow
-                }
-            );
-
-            // Seed sample products
-            modelBuilder.Entity<Product>().HasData(
-                new Product
-                {
-                    Id = 1,
-                    Name = "Laptop",
-                    Description = "High-performance laptop for work and gaming",
-                    Price = 999.99m,
-                    Stock = 50,
-                    Category = "Electronics",
-                    IsActive = true,
-                    CreatedAt = DateTime.UtcNow
-                },
-                new Product
-                {
-                    Id = 2,
-                    Name = "Smartphone",
-                    Description = "Latest smartphone with advanced features",
-                    Price = 699.99m,
-                    Stock = 100,
-                    Category = "Electronics",
-                    IsActive = true,
-                    CreatedAt = DateTime.UtcNow
-                },
-                new Product
-                {
-                    Id = 3,
-                    Name = "Coffee Maker",
-                    Description = "Automatic coffee maker for perfect brew",
-                    Price = 149.99m,
-                    Stock = 25,
-                    Category = "Appliances",
-                    IsActive = true,
-                    CreatedAt = DateTime.UtcNow
-                }
-            );
         }
     }
 }

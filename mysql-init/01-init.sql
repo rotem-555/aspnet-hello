@@ -63,9 +63,15 @@ CREATE TABLE IF NOT EXISTS OrderItems (
     INDEX IX_OrderItems_ProductId (ProductId)
 );
 
--- Insert default admin user (password: admin123)
+-- Insert default admin user (password: admin)
 INSERT IGNORE INTO Users (Username, PasswordHash, Role, Email, FirstName, LastName) VALUES
-('admin', '$2a$11$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'Admin', 'admin@example.com', 'Admin', 'User');
+('admin', '$2a$11$JgJz3SJp6G0ybSrE.9IEseM.zckLfuM6M8ZSf0AcVIe5PnSO4wRPK', 'Admin', 'admin@example.com', 'Admin', 'User');
+
+-- Insert test users (password matches username)
+INSERT IGNORE INTO Users (Username, PasswordHash, Role, Email, FirstName, LastName) VALUES
+('user1', '$2a$11$JvUGbe/DQXVUVQrB598Rk.RxpqJXhAWK9kPC1H6ylCxQHjjyIeHuS', 'Customer', 'user1@example.com', 'User', 'One'),
+('user2', '$2a$11$UTF0IIeH05VyWG56JWQ8peaFU/7Yj6LkwR1YiMDooD3eDDLRaKzhy', 'Customer', 'user2@example.com', 'User', 'Two'),
+('user3', '$2a$11$qC79lBSFTqNgk0ZUXstVY.DzKvyD2D6mGtHi7KZ0hfK71Lj.0mkTK', 'Customer', 'user3@example.com', 'User', 'Three');
 
 -- Insert sample products
 INSERT IGNORE INTO Products (Name, Description, Price, Stock, Category, IsActive) VALUES
