@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { SignalRService } from '../../core/services/signalr.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private signalRService: SignalRService
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -33,6 +35,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
+          // Start SignalR connection after successful login
+          this.signalRService.onUserLogin();
           this.router.navigate(['/products']);
         },
         error: (error) => {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { SignalRService } from '../../core/services/signalr.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,7 @@ export class NavbarComponent implements OnInit {
   isAdmin = false;
   username = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private signalRService: SignalRService) {}
 
   ngOnInit(): void {
     this.authService.currentUser$.subscribe(user => {
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.signalRService.onUserLogout();
     this.router.navigate(['/login']);
   }
 }

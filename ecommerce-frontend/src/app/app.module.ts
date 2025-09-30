@@ -15,6 +15,7 @@ import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { AuthService } from './core/services/auth.service';
 import { ProductService } from './core/services/product.service';
+import { SignalRService } from './core/services/signalr.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ProductService } from './core/services/product.service';
   providers: [
     AuthService,
     ProductService,
+    SignalRService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

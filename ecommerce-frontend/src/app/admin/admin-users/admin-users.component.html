@@ -1,9 +1,132 @@
-<div class="container">
+<div class="container mt-4">
   <div class="row">
     <div class="col-12">
-      <h2>Manage Users</h2>
-      <p class="text-muted">User management functionality will be implemented here.</p>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Real-time User Monitoring</h2>
+        <div class="d-flex align-items-center">
+          <span class="badge me-2" [ngClass]="connectionStatus === 'Connected' ? 'bg-success' : 'bg-danger'">
+            {{ connectionStatus }}
+          </span>
+          <small class="text-muted">SignalR Connection</small>
+        </div>
+      </div>
+
+      <!-- Statistics Cards -->
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="card bg-primary text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h4 class="card-title">{{ getConnectedUsersCount() }}</h4>
+                  <p class="card-text">Total Connected</p>
+                </div>
+                <div class="align-self-center">
+                  <i class="fas fa-users fa-2x"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-success text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h4 class="card-title">{{ getAdminUsersCount() }}</h4>
+                  <p class="card-text">Admins Online</p>
+                </div>
+                <div class="align-self-center">
+                  <i class="fas fa-user-shield fa-2x"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-info text-white">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h4 class="card-title">{{ getRegularUsersCount() }}</h4>
+                  <p class="card-text">Regular Users</p>
+                </div>
+                <div class="align-self-center">
+                  <i class="fas fa-user fa-2x"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Loading connected users...</p>
+      </div>
+
+      <!-- Users Table -->
+      <div *ngIf="!loading" class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Currently Connected Users</h5>
+        </div>
+        <div class="card-body p-0">
+          <div *ngIf="connectedUsers.length === 0" class="text-center p-4">
+            <i class="fas fa-user-slash fa-3x text-muted mb-3"></i>
+            <p class="text-muted">No users currently connected</p>
+          </div>
+          
+          <div *ngIf="connectedUsers.length > 0" class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Username</th>
+                  <th>Role</th>
+                  <th>Connection ID</th>
+                  <th>Connected Since</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let user of connectedUsers">
+                  <tr *ngIf="user">
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <i class="fas fa-circle text-success me-2" style="font-size: 8px;"></i>
+                        <strong>{{ user.username }}</strong>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge" [ngClass]="user.role === 'Admin' ? 'bg-danger' : 'bg-secondary'">
+                        {{ user.role }}
+                      </span>
+                    </td>
+                    <td>
+                      <code class="small">{{ user.connectionId }}</code>
+                    </td>
+                    <td>
+                      <small class="text-muted">{{ formatConnectionTime(user.connectedAt) }}</small>
+                    </td>
+                    <td>
+                      <span class="badge bg-success">Online</span>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-time Updates Info -->
+      <div class="alert alert-info mt-3">
+        <i class="fas fa-info-circle me-2"></i>
+        <strong>Real-time Updates:</strong> This page automatically updates when users connect or disconnect. 
+        Only administrators can access this monitoring page.
+      </div>
     </div>
   </div>
 </div>
-

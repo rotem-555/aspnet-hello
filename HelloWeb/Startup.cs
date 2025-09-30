@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using HelloWeb.Data;
 using HelloWeb.Services;
+using HelloWeb.Hubs;
 
 namespace HelloWeb
 {
@@ -51,6 +52,22 @@ namespace HelloWeb
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.Zero
                     };
+                    
+                    // Configure JWT for SignalR
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+                            var path = context.HttpContext.Request.Path;
+                            
+                            if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/userConnectionHub"))
+                            {
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
             // Add Authorization
@@ -70,6 +87,9 @@ namespace HelloWeb
 
             // Add Controllers
             services.AddControllers();
+
+            // Add SignalR
+            services.AddSignalR();
 
             // Add Services
             services.AddScoped<IAuthService, AuthService>();
@@ -105,6 +125,7 @@ namespace HelloWeb
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<UserConnectionHub>("/userConnectionHub");
                 
                 // Keep the original hello world endpoint for testing
                 endpoints.MapGet("/", async context =>

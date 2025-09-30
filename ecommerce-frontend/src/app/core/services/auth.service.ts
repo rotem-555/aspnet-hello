@@ -16,7 +16,9 @@ export class AuthService {
     // Check if user is already logged in
     const token = localStorage.getItem('token');
     if (token) {
-      this.validateToken().subscribe();
+      const username = localStorage.getItem('username');
+      const role = localStorage.getItem('role');
+      this.currentUserSubject.next({ username, role });
     }
   }
 
@@ -62,7 +64,7 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  private validateToken(): Observable<any> {
+  validateToken(): Observable<any> {
     return this.http.get(`${this.API_URL}/auth/validate`).pipe(
       map(() => {
         const username = localStorage.getItem('username');
