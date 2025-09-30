@@ -10,7 +10,7 @@ help:
 	@echo "  down      - Stop all services"
 	@echo "  logs      - Show logs for all services"
 	@echo "  clean     - Remove all containers, networks, and volumes"
-	@echo "  dev-up    - Start development services (MySQL + Redis only)"
+	@echo "  dev-up    - Start development services (MySQL only)"
 	@echo "  dev-down  - Stop development services"
 	@echo "  restart   - Restart all services"
 	@echo "  status    - Show status of all services"

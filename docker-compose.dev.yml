@@ -20,22 +20,9 @@ services:
     networks:
       - ecommerce-dev-network
 
-  # Redis for development
-  redis-dev:
-    image: redis:6-alpine
-    container_name: ecommerce-redis-dev
-    restart: unless-stopped
-    ports:
-      - "6380:6379"
-    volumes:
-      - redis_dev_data:/data
-    networks:
-      - ecommerce-dev-network
 
 volumes:
   mysql_dev_data:
-    driver: local
-  redis_dev_data:
     driver: local
 
 networks:
