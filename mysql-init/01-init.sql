@@ -33,34 +33,6 @@ CREATE TABLE IF NOT EXISTS Products (
     INDEX IX_Products_Category (Category)
 );
 
--- Create orders table
-CREATE TABLE IF NOT EXISTS Orders (
-    Id INT AUTO_INCREMENT PRIMARY KEY,
-    UserId INT NOT NULL,
-    TotalAmount DECIMAL(10,2) NOT NULL,
-    Status VARCHAR(20) NOT NULL DEFAULT 'Pending',
-    ShippingAddress VARCHAR(200),
-    CustomerName VARCHAR(100),
-    CustomerPhone VARCHAR(20),
-    CreatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    UpdatedAt DATETIME NULL,
-    FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE RESTRICT,
-    INDEX IX_Orders_UserId (UserId)
-);
-
--- Create order items table
-CREATE TABLE IF NOT EXISTS OrderItems (
-    Id INT AUTO_INCREMENT PRIMARY KEY,
-    OrderId INT NOT NULL,
-    ProductId INT NOT NULL,
-    Quantity INT NOT NULL,
-    UnitPrice DECIMAL(10,2) NOT NULL,
-    TotalPrice DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY (OrderId) REFERENCES Orders(Id) ON DELETE CASCADE,
-    FOREIGN KEY (ProductId) REFERENCES Products(Id) ON DELETE RESTRICT,
-    INDEX IX_OrderItems_OrderId (OrderId),
-    INDEX IX_OrderItems_ProductId (ProductId)
-);
 
 -- Insert default admin user (password: admin)
 INSERT IGNORE INTO Users (Username, PasswordHash, Role, Email, FirstName, LastName) VALUES

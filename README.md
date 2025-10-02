@@ -52,17 +52,6 @@ A full-stack e-commerce application built with .NET 5 Web API backend and Angula
 - is_active
 - created_at, updated_at
 
-### Orders Table (Optional)
-- id (Primary Key)
-- user_id (Foreign Key)
-- total_amount
-- status, shipping_address
-- created_at, updated_at
-
-### OrderItems Table (Optional)
-- id (Primary Key)
-- order_id, product_id (Foreign Keys)
-- quantity, unit_price, total_price
 
 ## Setup Instructions
 

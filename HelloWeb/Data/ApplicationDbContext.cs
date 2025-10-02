@@ -12,8 +12,6 @@ namespace HelloWeb.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,28 +31,6 @@ namespace HelloWeb.Data
                 entity.HasIndex(e => e.Category);
             });
 
-            // Configure Order entity
-            modelBuilder.Entity<Order>(entity =>
-            {
-                entity.HasOne(d => d.User)
-                    .WithMany()
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.Restrict);
-            });
-
-            // Configure OrderItem entity
-            modelBuilder.Entity<OrderItem>(entity =>
-            {
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.OrderItems)
-                    .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
-                entity.HasOne(d => d.Product)
-                    .WithMany()
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.Restrict);
-            });
 
         }
     }
