@@ -52,6 +52,60 @@
         </div>
       </div>
 
+      <!-- Edit Product Form -->
+      <div class="card mb-4" *ngIf="editingProduct">
+        <div class="card-header">
+          <h5>Edit Product</h5>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="updateProduct()">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Name</label>
+                  <input type="text" class="form-control" [(ngModel)]="editingProduct.name" name="editName" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">Category</label>
+                  <input type="text" class="form-control" [(ngModel)]="editingProduct.category" name="editCategory">
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea class="form-control" [(ngModel)]="editingProduct.description" name="editDescription" rows="3"></textarea>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="mb-3">
+                  <label class="form-label">Price</label>
+                  <input type="number" class="form-control" [(ngModel)]="editingProduct.price" name="editPrice" step="0.01" required>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="mb-3">
+                  <label class="form-label">Stock</label>
+                  <input type="number" class="form-control" [(ngModel)]="editingProduct.stock" name="editStock" required>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="mb-3">
+                  <label class="form-label">Status</label>
+                  <select class="form-control" [(ngModel)]="editingProduct.isActive" name="editStatus">
+                    <option [value]="true">Active</option>
+                    <option [value]="false">Inactive</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success me-2">Update Product</button>
+            <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+          </form>
+        </div>
+      </div>
+
       <!-- Error Message -->
       <div class="alert alert-danger" *ngIf="errorMessage">
         {{ errorMessage }}
