@@ -64,14 +64,4 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  validateToken(): Observable<any> {
-    return this.http.get(`${this.API_URL}/auth/validate`).pipe(
-      map(() => {
-        const username = localStorage.getItem('username');
-        const role = localStorage.getItem('role');
-        this.currentUserSubject.next({ username, role });
-        return { username, role };
-      })
-    );
-  }
 }

@@ -121,7 +121,6 @@ For detailed Docker instructions, see [DOCKER.md](DOCKER.md).
 ### Authentication
 - `POST /api/auth/login` - User login
 - `POST /api/auth/register` - User registration
-- `GET /api/auth/validate` - Validate JWT token
 
 ### Products
 - `GET /api/products` - Get all products (with optional category filter)

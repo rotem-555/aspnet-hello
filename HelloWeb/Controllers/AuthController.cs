@@ -60,12 +60,6 @@ namespace HelloWeb.Controllers
             }
         }
 
-        [HttpGet("validate")]
-        [Authorize]
-        public async Task<ActionResult> ValidateToken()
-        {
-            return Ok(new { message = "Token is valid" });
-        }
     }
 
     public class RegisterRequest

@@ -83,32 +83,6 @@ namespace HelloWeb.Services
             return user;
         }
 
-        public async Task<bool> ValidateTokenAsync(string token)
-        {
-            try
-            {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
-
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidIssuer = _configuration["Jwt:Issuer"],
-                    ValidateAudience = true,
-                    ValidAudience = _configuration["Jwt:Audience"],
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
 
         public async Task<User> GetUserFromTokenAsync(string token)
         {
