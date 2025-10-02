@@ -67,7 +67,6 @@ export class AdminProductsComponent implements OnInit {
         price: this.editingProduct.price,
         stock: this.editingProduct.stock,
         category: this.editingProduct.category,
-        isActive: this.editingProduct.isActive
       };
 
       this.productService.updateProduct(this.editingProduct.id, updateData).subscribe({

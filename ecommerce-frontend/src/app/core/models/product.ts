@@ -5,7 +5,6 @@ export interface Product {
   price: number;
   stock: number;
   category: string;
-  isActive: boolean;
   createdAt: string;
 }
 
@@ -23,6 +22,5 @@ export interface UpdateProduct {
   price?: number;
   stock?: number;
   category?: string;
-  isActive?: boolean;
 }
 

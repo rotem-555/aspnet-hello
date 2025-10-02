@@ -90,15 +90,6 @@
                   <input type="number" class="form-control" [(ngModel)]="editingProduct.stock" name="editStock" required>
                 </div>
               </div>
-              <div class="col-md-3">
-                <div class="mb-3">
-                  <label class="form-label">Status</label>
-                  <select class="form-control" [(ngModel)]="editingProduct.isActive" name="editStatus">
-                    <option [value]="true">Active</option>
-                    <option [value]="false">Inactive</option>
-                  </select>
-                </div>
-              </div>
             </div>
             <button type="submit" class="btn btn-success me-2">Update Product</button>
             <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
@@ -123,7 +114,6 @@
                   <th>Category</th>
                   <th>Price</th>
                   <th>Stock</th>
-                  <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -134,11 +124,6 @@
                   <td>{{ product.category }}</td>
                   <td>${{ product.price | number:'1.2-2' }}</td>
                   <td>{{ product.stock }}</td>
-                  <td>
-                    <span class="badge" [class.bg-success]="product.isActive" [class.bg-secondary]="!product.isActive">
-                      {{ product.isActive ? 'Active' : 'Inactive' }}
-                    </span>
-                  </td>
                   <td>
                     <button class="btn btn-sm btn-outline-primary me-2" (click)="editProduct(product)">
                       Edit

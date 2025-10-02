@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS Products (
     Price DECIMAL(10,2) NOT NULL,
     Stock INT NOT NULL,
     Category VARCHAR(50),
-    IsActive BOOLEAN NOT NULL DEFAULT TRUE,
     CreatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt DATETIME NULL,
     INDEX IX_Products_Name (Name),
@@ -74,11 +73,11 @@ INSERT IGNORE INTO Users (Username, PasswordHash, Role, Email, FirstName, LastNa
 ('user3', '$2a$11$qC79lBSFTqNgk0ZUXstVY.DzKvyD2D6mGtHi7KZ0hfK71Lj.0mkTK', 'Customer', 'user3@example.com', 'User', 'Three');
 
 -- Insert sample products
-INSERT IGNORE INTO Products (Name, Description, Price, Stock, Category, IsActive) VALUES
-('Laptop', 'High-performance laptop for work and gaming', 999.99, 50, 'Electronics', TRUE),
-('Smartphone', 'Latest smartphone with advanced features', 699.99, 100, 'Electronics', TRUE),
-('Coffee Maker', 'Automatic coffee maker for perfect brew', 149.99, 25, 'Appliances', TRUE),
-('Wireless Headphones', 'Noise-cancelling wireless headphones', 199.99, 75, 'Electronics', TRUE),
-('Office Chair', 'Ergonomic office chair for comfort', 299.99, 30, 'Furniture', TRUE),
-('Desk Lamp', 'LED desk lamp with adjustable brightness', 49.99, 60, 'Furniture', TRUE);
+INSERT IGNORE INTO Products (Name, Description, Price, Stock, Category) VALUES
+('Laptop', 'High-performance laptop for work and gaming', 999.99, 50, 'Electronics'),
+('Smartphone', 'Latest smartphone with advanced features', 699.99, 100, 'Electronics'),
+('Coffee Maker', 'Automatic coffee maker for perfect brew', 149.99, 25, 'Appliances'),
+('Wireless Headphones', 'Noise-cancelling wireless headphones', 199.99, 75, 'Electronics'),
+('Office Chair', 'Ergonomic office chair for comfort', 299.99, 30, 'Furniture'),
+('Desk Lamp', 'LED desk lamp with adjustable brightness', 49.99, 60, 'Furniture');
 

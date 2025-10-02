@@ -21,7 +21,6 @@ namespace HelloWeb.Services
         public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
             var products = await _context.Products
-                .Where(p => p.IsActive)
                 .OrderBy(p => p.Name)
                 .ToListAsync();
 
@@ -31,7 +30,7 @@ namespace HelloWeb.Services
         public async Task<IEnumerable<ProductDto>> GetProductsByCategoryAsync(string category)
         {
             var products = await _context.Products
-                .Where(p => p.IsActive && p.Category == category)
+                .Where(p => p.Category == category)
                 .OrderBy(p => p.Name)
                 .ToListAsync();
 
@@ -41,7 +40,7 @@ namespace HelloWeb.Services
         public async Task<ProductDto> GetProductByIdAsync(int id)
         {
             var product = await _context.Products
-                .FirstOrDefaultAsync(p => p.Id == id && p.IsActive);
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (product == null)
                 return null;
@@ -58,7 +57,6 @@ namespace HelloWeb.Services
                 Price = createProductDto.Price,
                 Stock = createProductDto.Stock,
                 Category = createProductDto.Category,
-                IsActive = true,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -84,8 +82,6 @@ namespace HelloWeb.Services
                 product.Stock = updateProductDto.Stock.Value;
             if (updateProductDto.Category != null)
                 product.Category = updateProductDto.Category;
-            if (updateProductDto.IsActive.HasValue)
-                product.IsActive = updateProductDto.IsActive.Value;
 
             product.UpdatedAt = DateTime.UtcNow;
 
@@ -99,8 +95,8 @@ namespace HelloWeb.Services
             if (product == null)
                 return false;
 
-            // Soft delete by setting IsActive to false
-            product.IsActive = false;
+            // Hard delete the product
+            _context.Products.Remove(product);
             product.UpdatedAt = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();
@@ -110,7 +106,7 @@ namespace HelloWeb.Services
         public async Task<IEnumerable<string>> GetCategoriesAsync()
         {
             return await _context.Products
-                .Where(p => p.IsActive && !string.IsNullOrEmpty(p.Category))
+                .Where(p => !string.IsNullOrEmpty(p.Category))
                 .Select(p => p.Category)
                 .Distinct()
                 .OrderBy(c => c)
@@ -127,7 +123,6 @@ namespace HelloWeb.Services
                 Price = product.Price,
                 Stock = product.Stock,
                 Category = product.Category,
-                IsActive = product.IsActive,
                 CreatedAt = product.CreatedAt
             };
         }
