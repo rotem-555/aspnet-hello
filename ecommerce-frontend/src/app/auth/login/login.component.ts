@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.authService.isLoggedInWithValidation()) {
+    if (this.authService.isLoggedIn()) {
       this.router.navigate(['/products']);
     }
   }

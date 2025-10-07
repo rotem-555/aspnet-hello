@@ -16,8 +16,8 @@ export class AuthService {
     // Check if user is already logged in and validate token
     const token = localStorage.getItem('token');
     if (token) {
-      this.checkTokenExpiration(); // This will logout if token is expired
-      if (this.isLoggedIn()) { // Only set user if token is still valid
+      // isLoggedIn() now includes validation, so this will auto-logout if expired
+      if (this.isLoggedIn()) {
         const username = localStorage.getItem('username');
         const role = localStorage.getItem('role');
         this.currentUserSubject.next({ username, role });
@@ -56,6 +56,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+    this.checkTokenExpiration();
     return !!this.getToken();
   }
 
@@ -85,12 +86,6 @@ export class AuthService {
         this.logout();
       }
     }
-  }
-
-  // Enhanced isLoggedIn method that also checks token expiration
-  isLoggedInWithValidation(): boolean {
-    this.checkTokenExpiration();
-    return this.isLoggedIn();
   }
 
 }
