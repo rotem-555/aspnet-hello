@@ -20,6 +20,7 @@ namespace HelloWeb.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery] string category = null)
         {
             try
@@ -42,6 +43,7 @@ namespace HelloWeb.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<ProductDto>> GetProduct(int id)
         {
             try
@@ -59,6 +61,7 @@ namespace HelloWeb.Controllers
         }
 
         [HttpGet("categories")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<string>>> GetCategories()
         {
             try

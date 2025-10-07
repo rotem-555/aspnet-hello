@@ -94,9 +94,6 @@ namespace HelloWeb
             // Add Services
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IProductService, ProductService>();
-
-            // Add Swagger for API documentation
-            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -105,11 +102,6 @@ namespace HelloWeb
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-Commerce API V1");
-                });
             }
 
             app.UseHttpsRedirection();
@@ -126,12 +118,6 @@ namespace HelloWeb
             {
                 endpoints.MapControllers();
                 endpoints.MapHub<UserConnectionHub>("/userConnectionHub");
-                
-                // Keep the original hello world endpoint for testing
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("E-Commerce API is running! Visit /swagger for API documentation.");
-                });
             });
         }
     }
