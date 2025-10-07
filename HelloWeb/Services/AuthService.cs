@@ -48,8 +48,7 @@ namespace HelloWeb.Services
             {
                 Token = token,
                 Username = user.Username,
-                Role = user.Role,
-                ExpiresAt = DateTime.UtcNow.AddHours(24)
+                Role = user.Role
             };
         }
 
@@ -84,22 +83,6 @@ namespace HelloWeb.Services
         }
 
 
-        public async Task<User> GetUserFromTokenAsync(string token)
-        {
-            try
-            {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var jwtToken = tokenHandler.ReadJwtToken(token);
-                var username = jwtToken.Claims.First(x => x.Type == "username").Value;
-
-                return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
         private string GenerateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -113,7 +96,7 @@ namespace HelloWeb.Services
                     new Claim("role", user.Role),
                     new Claim("email", user.Email ?? "")
                 }),
-                Expires = DateTime.UtcNow.AddHours(24),
+                Expires = DateTime.UtcNow.AddMinutes(1),
                 Issuer = _configuration["Jwt:Issuer"],
                 Audience = _configuration["Jwt:Audience"],
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

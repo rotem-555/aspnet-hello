@@ -17,7 +17,6 @@ export interface LoginResponse {
   token: string;
   username: string;
   role: string;
-  expiresAt: string;
 }
 
 export interface RegisterRequest {

@@ -8,6 +8,5 @@ namespace HelloWeb.Services
     {
         Task<LoginResponse> LoginAsync(LoginRequest request);
         Task<User> RegisterAsync(string username, string password, string email, string firstName, string lastName);
-        Task<User> GetUserFromTokenAsync(string token);
     }
 }

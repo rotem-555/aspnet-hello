@@ -13,12 +13,15 @@ export class AuthService {
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    // Check if user is already logged in
+    // Check if user is already logged in and validate token
     const token = localStorage.getItem('token');
     if (token) {
-      const username = localStorage.getItem('username');
-      const role = localStorage.getItem('role');
-      this.currentUserSubject.next({ username, role });
+      this.checkTokenExpiration(); // This will logout if token is expired
+      if (this.isLoggedIn()) { // Only set user if token is still valid
+        const username = localStorage.getItem('username');
+        const role = localStorage.getItem('role');
+        this.currentUserSubject.next({ username, role });
+      }
     }
   }
 
@@ -62,6 +65,32 @@ export class AuthService {
 
   getCurrentUser(): any {
     return this.currentUserSubject.value;
+  }
+
+  // Check if token is expired and logout if needed
+  checkTokenExpiration(): void {
+    const token = this.getToken();
+    if (token) {
+      try {
+        // Decode JWT token to check expiration
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const currentTime = Math.floor(Date.now() / 1000);
+        
+        if (payload.exp && payload.exp < currentTime) {
+          console.log('Token expired - logging out user');
+          this.logout();
+        }
+      } catch (error) {
+        console.log('Invalid token format - logging out user');
+        this.logout();
+      }
+    }
+  }
+
+  // Enhanced isLoggedIn method that also checks token expiration
+  isLoggedInWithValidation(): boolean {
+    this.checkTokenExpiration();
+    return this.isLoggedIn();
   }
 
 }
